@@ -32,4 +32,72 @@
         <p>&copy; 2025 Jaanu - All Rights Reserved</p>
     </footer>
 </body>
+</html<h2>Upload an Image for AI Enhancement</h2>
+<input type="file" id="imageInput">
+<button onclick="uploadImage()">Enhance Image</button>
+<br><br>
+<img id="outputImage" src="" style="max-width: 100%; display:none;">
+
+<script>
+    async function uploadImage() {
+        let imageFile = document.getElementById("imageInput").files[0];
+        let formData = new FormData();
+        formData.append("image", imageFile);
+        
+        let response = await fetch("https://your-ai-backend-url.com/process", {
+            method: "POST",
+            body: formData
+        });
+        
+        let result = await response.json();
+        document.getElementById("outputImage").src = result.processedImageUrl;
+        document.getElementById("outputImage").style.display = "block";
+    }
+</script<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video/Photo Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Media Editor</h1>
+        
+        <!-- File Upload Section -->
+        <div class="upload-section">
+            <input type="file" id="mediaInput" accept="image/*, video/*">
+            <button onclick="processMedia()">Process</button>
+        </div>
+
+        <!-- Features Selection -->
+        <div class="features">
+            <label><input type="checkbox" id="bgRemove"> Background Removal</label>
+            <label><input type="checkbox" id="colorCorrection"> Color Correction</label>
+            <label><input type="checkbox" id="videoStabilize"> Video Stabilization</label>
+            <select id="filterSelect">
+                <option value="none">Select Filter</option>
+                <option value="vintage">Vintage</option>
+                <option value="grayscale">Black & White</option>
+            </select>
+        </div>
+
+        <!-- Results Display -->
+        <div class="result-container">
+            <div class="preview">
+                <h3>Original</h3>
+                <img id="originalPreview" src="#" alt="Original Preview">
+                <video id="originalVideo" controls style="display: none;"></video>
+            </div>
+            <div class="preview">
+                <h3>Processed</h3>
+                <img id="processedPreview" src="#" alt="Processed Preview">
+                <video id="processedVideo" controls style="display: none;"></video>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
