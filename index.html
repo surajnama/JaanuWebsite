@@ -174,3 +174,47 @@ ii vividh<!DOCTYPE html>
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Enhancer</title>
+</head>
+<body>
+
+    <h2>Upload an Image for AI Enhancement</h2>
+    <input type="file" id="imageUpload">
+    <button onclick="enhanceImage()">Enhance Image</button>
+
+    <h3>Output:</h3>
+    <img id="outputImage" style="max-width: 100%;">
+
+    <script>
+        async function enhanceImage() {
+            let fileInput = document.getElementById("imageUpload");
+            let file = fileInput.files[0];
+            
+            if (!file) {
+                alert("Please upload an image!");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("image", file);
+
+            let response = await fetch("https://api.deepai.org/api/image-editor", {
+                method: "POST",
+                headers: {
+                    "api-key": "YOUR_API_KEY_HERE"
+                },
+                body: formData
+            });
+
+            let result = await response.json();
+            document.getElementById("outputImage").src = result.output_url; // Show enhanced image
+        }
+    </script>
+
+</body>
+</html>
