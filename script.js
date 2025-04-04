@@ -70,4 +70,34 @@ function showProcessedResult(processedBlob) {
         document.getElementById('processedVideo').style.display = 'block';
         document.getElementById('processedPreview').style.display = 'none';
     }
+}async function enhanceImage() {
+    let fileInput = document.getElementById('image-input');
+    let outputImage = document.getElementById('output-image');
+
+    if (fileInput.files.length === 0) {
+        alert("Please select an image!");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    try {
+        let response = await fetch("https://api.deepai.org/api/image-editor", {
+            method: "POST",
+            headers: { "api-key": "YOUR_DEEPAI_API_KEY" },
+            body: formData,
+        });
+
+        let data = await response.json();
+        if (data.output_url) {
+            outputImage.src = data.output_url;
+            outputImage.style.display = "block";
+        } else {
+            alert("AI Enhancement failed!");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong!");
+    }
 }
