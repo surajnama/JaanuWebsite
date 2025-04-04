@@ -100,4 +100,9 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html><form id="upload-form">
+    <label>Upload an Image for AI Enhancement</label>
+    <input type="file" id="image-input" accept="image/*">
+    <button type="button" onclick="enhanceImage()">Enhance Image</button>
+</form>
+<img id="output-image" style="display:none; width:300px; margin-top:20px;">
